@@ -75,7 +75,14 @@
     .modal-complete-btn.is-done{background:linear-gradient(135deg,#1a3a3a,#1a3530);color:#7ecfcf}
   </style>
 </head>
-<body>
+<div id="leadModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:999;">
+  <div style="background:#141428; margin:20% auto; padding:30px; border-radius:20px; max-width:320px; border:1px solid #7ecfcf;">
+    <h3 style="color:#c9a84c; text-align:center;">Get Your Free Guide</h3>
+    <input id="emailInput" placeholder="Your email" style="width:100%; padding:12px; margin:15px 0; border-radius:10px; border:1px solid #2a2a4a; background:#0d0d1a; color:#e8e8f0;">
+    <button onclick="submitLead()" style="width:100%; padding:12px; background:#7ecfcf; color:#0d0d1a; border:none; border-radius:10px; font-weight:600;">Send Guide</button>
+  </div>
+</div>
+  <body>
 <div class="bg-canvas" id="bgCanvas"></div>
 <div id="dayModal">
   <div class="modal-inner">
