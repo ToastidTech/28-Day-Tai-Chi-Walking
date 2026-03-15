@@ -1,1 +1,198 @@
 
+
+import base64
+
+with open("1000014705.jpeg", "rb") as f:
+    logo_b64 = base64.b64encode(f.read()).decode()
+
+logo_tag = f'<img src="data:image/jpeg;base64,{logo_b64}" alt="Toastid Tech" style="height:80px;width:80px;object-fit:contain;border-radius:50%;border:2px solid rgba(100,180,255,0.3);margin-bottom:10px;">'
+
+html_content = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>28-Day Walking Tai Chi | Toastid Tech</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0a0e1a 0%, #0d2137 50%, #0a1628 100%);
+    min-height: 100vh;
+    color: #e0e8f0;
+  }
+  header {
+    text-align: center;
+    padding: 24px 20px 15px;
+    background: rgba(0,0,0,0.3);
+    border-bottom: 1px solid rgba(100,180,255,0.2);
+  }
+  header h1 {
+    font-size: 2rem;
+    color: #7dd3fc;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  header p { color: #94a3b8; margin-top: 6px; font-size: 0.95rem; }
+  .powered { font-size: 0.72rem; color: #3b82f6; margin-top: 8px; letter-spacing: 1px; text-transform: uppercase; }
+  .progress-bar-container { background: rgba(0,0,0,0.3); padding: 12px 20px; text-align: center; }
+  .progress-label { font-size: 0.85rem; color: #94a3b8; margin-bottom: 6px; }
+  .progress-bar { background: rgba(255,255,255,0.1); border-radius: 20px; height: 12px; max-width: 500px; margin: 0 auto; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #3b82f6, #7dd3fc); border-radius: 20px; transition: width 0.5s ease; }
+  .week-tabs { display: flex; justify-content: center; gap: 8px; padding: 16px 20px; flex-wrap: wrap; }
+  .week-tab { padding: 8px 20px; border-radius: 25px; border: 1px solid rgba(100,180,255,0.3); background: rgba(255,255,255,0.05); color: #94a3b8; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; }
+  .week-tab.active { background: rgba(59,130,246,0.3); border-color: #3b82f6; color: #7dd3fc; }
+  .week-tab:hover { background: rgba(59,130,246,0.2); }
+  .week-header { text-align: center; padding: 10px 20px 5px; }
+  .week-header h2 { color: #7dd3fc; font-size: 1.2rem; }
+  .week-header p { color: #64748b; font-size: 0.85rem; margin-top: 4px; }
+  .days-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; padding: 16px 20px 30px; max-width: 1100px; margin: 0 auto; }
+  .day-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(100,180,255,0.1); border-radius: 14px; padding: 16px; cursor: pointer; transition: all 0.25s; position: relative; }
+  .day-card:hover { background: rgba(59,130,246,0.1); border-color: rgba(100,180,255,0.3); transform: translateY(-2px); }
+  .day-card.completed { border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.06); }
+  .day-card.rest { border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.05); }
+  .day-card.active-day { border-color: rgba(251,191,36,0.5); background: rgba(251,191,36,0.07); }
+  .day-num { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
+  .day-title { font-size: 1rem; font-weight: 600; color: #e2e8f0; margin: 4px 0; }
+  .day-duration { font-size: 0.8rem; color: #7dd3fc; margin-bottom: 8px; }
+  .day-desc { font-size: 0.82rem; color: #94a3b8; line-height: 1.5; }
+  .badge { position: absolute; top: 12px; right: 12px; font-size: 1.2rem; }
+  .complete-btn { margin-top: 12px; width: 100%; padding: 8px; border-radius: 8px; border: 1px solid rgba(34,197,94,0.4); background: rgba(34,197,94,0.1); color: #4ade80; cursor: pointer; font-size: 0.82rem; transition: all 0.2s; }
+  .complete-btn:hover { background: rgba(34,197,94,0.2); }
+  .complete-btn.done { background: rgba(34,197,94,0.25); color: #86efac; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: #0f172a; border: 1px solid rgba(100,180,255,0.25); border-radius: 18px; padding: 28px; max-width: 480px; width: 100%; max-height: 80vh; overflow-y: auto; }
+  .modal h3 { color: #7dd3fc; font-size: 1.2rem; margin-bottom: 4px; }
+  .modal .meta { color: #64748b; font-size: 0.82rem; margin-bottom: 16px; }
+  .step-list { list-style: none; }
+  .step-list li { padding: 10px 14px; margin-bottom: 8px; background: rgba(255,255,255,0.04); border-left: 3px solid #3b82f6; border-radius: 6px; font-size: 0.88rem; color: #cbd5e1; line-height: 1.5; }
+  .tip-box { margin-top: 14px; padding: 12px; background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); border-radius: 8px; font-size: 0.82rem; color: #fde68a; }
+  .close-btn { margin-top: 18px; width: 100%; padding: 10px; border-radius: 10px; border: none; background: rgba(59,130,246,0.3); color: #7dd3fc; cursor: pointer; font-size: 0.9rem; }
+  .close-btn:hover { background: rgba(59,130,246,0.5); }
+  .stats-bar { display: flex; justify-content: center; gap: 30px; padding: 12px 20px; background: rgba(0,0,0,0.2); border-top: 1px solid rgba(100,180,255,0.1); flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat-num { font-size: 1.4rem; font-weight: 700; color: #7dd3fc; }
+  .stat-label { font-size: 0.72rem; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<header>
+  """ + logo_tag + """
+  <h1>☯ 28-Day Walking Tai Chi</h1>
+  <p>Build balance, calm, and strength — one mindful step at a time</p>
+  <div class="powered">Powered by Toastid Tech</div>
+</header>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num" id="statDone">0</div><div class="stat-label">Days Done</div></div>
+  <div class="stat"><div class="stat-num" id="statLeft">28</div><div class="stat-label">Days Left</div></div>
+  <div class="stat"><div class="stat-num" id="statStreak">0</div><div class="stat-label">🔥 Streak</div></div>
+  <div class="stat"><div class="stat-num" id="statPct">0%</div><div class="stat-label">Complete</div></div>
+</div>
+
+<div class="progress-bar-container">
+  <div class="progress-label" id="progressLabel">0 of 28 days completed</div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
+
+<div class="week-tabs" id="weekTabs"></div>
+<div class="week-header"><h2 id="weekTitle"></h2><p id="weekSub"></p></div>
+<div class="days-grid" id="daysGrid"></div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+const weeks = [
+  { title: "Week 1 — Awakening", subtitle: "Posture, breathing, and your first mindful steps" },
+  { title: "Week 2 — Finding Flow", subtitle: "Connect movements together like water" },
+  { title: "Week 3 — Rooting & Balance", subtitle: "Deepen stability and single-leg strength" },
+  { title: "Week 4 — Integration", subtitle: "Unify everything into your daily practice" }
+];
+
+const days = [
+  { day:1, title:"Opening the Door", duration:"10 min", rest:false, steps:["Stand feet shoulder-width apart, relax shoulders down","Take 3 deep belly breaths — in through nose, out through mouth","Slow neck rolls: 3 each direction","Shoulder circles: 10 forward, 10 back","Gentle hip circles: 10 each direction","Walk slowly in place, lifting knees gently for 3 minutes","End with arms floating up on inhale, down on exhale x5"], tip:"Focus only on your breath today. Don't worry about perfect form." },
+  { day:2, title:"The Three Treasures", duration:"10 min", rest:false, steps:["Align Head, Heart, Hips in a vertical line — spine tall","Practice standing meditation: 2 minutes eyes closed","Feel your feet rooted into the ground like tree roots","Slow walk forward 10 steps, pause, walk back 10 steps","Arms swing gently at sides — loose, not stiff","Repeat walk pattern 3 times","Close: hug the tree pose — arms in front, hold 1 minute"], tip:"Imagine your head is suspended from above by a golden thread." },
+  { day:3, title:"Silk Reeling", duration:"12 min", rest:false, steps:["Warm up: ankle circles, knee circles, hip circles (10 each)","Shift weight to left foot slowly — feel full weight transfer","Shift to right foot — sand in an hourglass, grain by grain","Practice weight shifting side to side for 3 minutes","Add arm: as weight shifts left, left arm rises gently; same right","Walk 5 steps forward using full weight shifts — no rushing","Repeat x4 sets, rest between each"], tip:"The slower you go, the more you strengthen your stabilizer muscles." },
+  { day:4, title:"Joint Lubrication", duration:"12 min", rest:false, steps:["Wrist circles: 10 each direction","Elbow bends: slow flex and extend x10","Shoulder rolls forward and back x10","Hip flexor stretch: step one foot forward, gentle lunge hold 20 sec each","Knee bends: slow mini-squats x10","Tai Chi walk: step heel first, then ball, then toes — 8 steps","Reverse walk slowly — 8 steps back — enhances balance"], tip:"Lubricate every joint consciously. This is medicine for your body." },
+  { day:5, title:"Opening Form", duration:"15 min", rest:false, steps:["Begin in Wu Ji stance: feet parallel, arms at sides, relax","Inhale: arms float up slowly to shoulder height","Exhale: arms press gently down, knees soften","Repeat Opening Form x8 — this is your daily anchor","Tai Chi walk: 10 steps forward, pause, 10 steps back","Add coordinated breathing: inhale as foot lifts, exhale as it lands","End with 2 minutes standing meditation"], tip:"The Opening Form calms the nervous system instantly. Return to it anytime." },
+  { day:6, title:"Breath & Movement", duration:"15 min", rest:false, steps:["Opening Form x5 to begin","Sky Reach: inhale as arms rise overhead, exhale as they lower x8","Chest Opener: arms sweep open wide on inhale, cross on exhale x8","Knee Pull: lift knee gently, hold 2 sec, lower slowly — 8 each leg","Tai Chi walk with full breath sync: 15 steps","Rest 1 minute in Wu Ji stance","Closing: three cleansing breaths — in nose, long out mouth"], tip:"When breath and movement sync, stress hormones drop measurably." },
+  { day:7, title:"Rest & Reflect", duration:"5 min", rest:true, steps:["Light stretch only: neck, shoulders, hips","Seated or standing: 5 minutes of quiet breathing","Reflect: what did you notice this week in your body?","Write one word that describes how you feel after 6 days","Hydrate well today","Optional: gentle 5-minute outdoor walk at normal pace","You earned this rest — recovery builds strength"], tip:"Rest days are NOT optional. Your body consolidates gains while resting." },
+  { day:8, title:"Weight Shifting", duration:"15 min", rest:false, steps:["Opening Form x5","Focus: shift weight fully before stepping — never 50/50","Tai Chi walk: practice 'empty foot' — back foot is always light","Walk 12 steps forward without bobbing up and down — stay level","Arms: one hand leads forward, one trails back naturally","Pause mid-walk: hold single leg stance for 3 seconds each step","3 sets with 30 sec rest between"], tip:"'Empty and Full' — your front foot is full (weighted), back foot is empty." },
+  { day:9, title:"Wave Hands Like Clouds", duration:"15 min", rest:false, steps:["Warm up: 3 minutes Tai Chi walking from Week 1","Stand feet wider than shoulders, slight knee bend","Right hand arcs across body at face level left to right","Simultaneously weight shifts right, left hand drops to hip","Reverse: left hand arcs left to right, weight shifts left","Coordinate: step side to side as hands wave — continuous flow","Practice 2 minutes each direction"], tip:"Imagine you're moving through warm water — resistance and flow together." },
+  { day:10, title:"Brush Knee", duration:"15 min", rest:false, steps:["Step left foot forward into a bow stance","Left hand brushes down past left knee (like clearing a path)","Right hand pushes forward at chest height","Shift weight forward, feel the push through your whole body","Step back to center, repeat right side","Alternate Brush Knee 8 times each side","Combine with 10-step Tai Chi walk between sets"], tip:"The push comes from your back leg, not your arm — connect the whole chain." },
+  { day:11, title:"2-Minute Mini Flow", duration:"18 min", rest:false, steps:["Opening Form x3","Tai Chi walk 10 steps","Wave Hands Like Clouds — 1 minute","Tai Chi walk 10 steps","Brush Knee x6 each side","Tai Chi walk 10 steps","Closing Form: arms float down, three breaths","Rest, then repeat the full sequence once more"], tip:"This is your first connected flow! Don't worry about perfection — just move." },
+  { day:12, title:"Stork & Crane", duration:"18 min", rest:false, steps:["Opening Form x5","Single leg balance practice: hold 5 sec each leg x5","Crane stance: standing on one leg, arms out like wings — 10 sec each","Tai Chi walk with 5-second holds at single-leg phase","Slow stork walk: step, pause (5 sec balance), step, pause","10 lengths of the room — slow and controlled","Close with Wave Hands Like Clouds x8"], tip:"If you wobble, that's the workout! Every wobble trains your stabilizers." },
+  { day:13, title:"Flow Connection", duration:"20 min", rest:false, steps:["Full warm-up: all Week 1 joint circles","Tai Chi walk 15 steps","Wave Hands Like Clouds 1.5 minutes","Brush Knee x8 each side","Stork walk x10 steps","Opening Form x3","Full sequence x2 rounds — flowing without stopping between moves"], tip:"Think 'water flowing downhill' — continuous, effortless, finding the path." },
+  { day:14, title:"Rest & Restore", duration:"5 min", rest:true, steps:["Gentle seated hip stretches: figure-4 stretch each side 30 sec","Standing forward fold: hang loose 30 seconds","Shoulder cross-body stretch: 20 sec each arm","5 deep diaphragmatic breaths — expand belly on inhale","Reflect: notice any balance improvements from Week 1?","Celebrate 2 weeks — that's real commitment!","Hydrate and eat nourishing food today"], tip:"You're halfway through! Your nervous system is already rewiring for balance." },
+  { day:15, title:"Rooting the Feet", duration:"20 min", rest:false, steps:["Barefoot if possible: feel all four corners of each foot","Slow weight roll: heel → outer edge → ball → toes → back","Tai Chi walk focusing only on foot contact with ground","Imagine roots growing from your feet with each step","15 steps forward, slow — feel every part of foot land","Muddy sand visualization: your feet leave prints, feel the resistance","3 sets of 15 steps with full rooting attention"], tip:"In Tai Chi: 'The root is in the feet, power flows through the legs.'" },
+  { day:16, title:"Slow-Motion Stepping", duration:"20 min", rest:false, steps:["Open with 5-minute standing meditation — ground yourself","Take ONE step over 30 seconds — no rushing","Shift weight grain-by-grain as you transfer","Lift back foot so slowly it's barely noticeable","Step forward — heel first, softest possible landing","Take 6 ultra-slow steps each direction","Normal Tai Chi walk for 2 minutes to feel the contrast"], tip:"The slower the walk, the stronger the leg muscles developed." },
+  { day:17, title:"Golden Rooster", duration:"20 min", rest:false, steps:["Warm up: full Week 1 joint sequence","Golden Rooster: stand on left leg, raise right knee to hip height","Arms rise as knee rises — hold 5 seconds, lower slowly","Alternate sides x8 each — this is modified for safety","Progress: close your eyes for 3 seconds during the hold","Combine with Tai Chi walk: walk 5 steps, Golden Rooster balance","3 rounds of combined walk + balance"], tip:"Look at a fixed point on the wall — a 'drishti' anchors your balance." },
+  { day:18, title:"Grasp the Sparrow", duration:"20 min", rest:false, steps:["Opening Form x5","Right hand curves as if holding a bird — fingers soft, not gripping","Step forward: right hand guides, left hand protects","Weight shifts smoothly into bow stance as hand extends","Feel the movement originate from your center (dan tian — 2 inches below navel)","Alternate Grasp the Sparrow: 8 each side","Combine: Tai Chi walk → Brush Knee → Grasp the Sparrow → repeat"], tip:"All Tai Chi power originates from the dan tian — your energy center." },
+  { day:19, title:"Stability Drill", duration:"22 min", rest:false, steps:["10-min Tai Chi walk with eyes partially closed (safe area only)","Tandem walk: place one foot directly in front of other — heel to toe","10 tandem steps forward, 10 back — challenge your vestibular system","Side steps with full weight shift: 10 each direction","Single leg stance: 10, 15, 20 second holds — beat yesterday's time","Wave Hands Like Clouds: lower stance than usual (deeper knee bend)","Cool down: slow Opening Form x3"], tip:"Your vestibular system (inner ear balance) adapts rapidly with daily practice." },
+  { day:20, title:"Moving Meditation", duration:"22 min", rest:false, steps:["Begin with 3 minutes seated, eyes closed — clear the mind","Set intention: 'I move with awareness and peace'","Begin Tai Chi walk — treat every step as a meditation object","When mind wanders, gently return attention to foot-ground contact","Continue for 10 minutes without stopping","Transition into full mini-flow: Opening → Walk → Wave → Brush → Grasp","Close eyes for final 2 minutes of standing stillness"], tip:"This is moving meditation — the goal is presence, not perfection." },
+  { day:21, title:"Rest & Renew", duration:"5 min", rest:true, steps:["Full body stretch: 10 minutes of held stretches","Hip flexors, hamstrings, calves, shoulders, neck","Foam roll or self-massage any tight areas","5-minute breathing meditation: box breathing (4 in, 4 hold, 4 out, 4 hold)","Journal: what physical changes have you noticed in 3 weeks?","3 weeks complete — your balance has measurably improved!","Plan a reward for completing the full 28 days"], tip:"Research shows 21 days creates neural pathways — your new habit is forming!" },
+  { day:22, title:"The Full 8-Form", duration:"25 min", rest:false, steps:["1. Opening Form — 3 reps","2. Tai Chi Walk — 10 steps","3. Wave Hands Like Clouds — 8 reps","4. Brush Knee — 6 each side","5. Grasp the Sparrow — 6 each side","6. Golden Rooster Balance — 5 each side","7. Stork Walk — 10 steps","8. Closing Form — arms lower, three deep breaths","Flow through once without stopping — this is your 8-Form!"], tip:"Don't memorize — feel. Let your body remember through sensation, not thinking." },
+  { day:23, title:"Speed Variations", duration:"25 min", rest:false, steps:["Opening Form x3","Tai Chi walk at 50% normal speed — ultra slow — 10 steps","Same walk at normal Tai Chi pace — 10 steps","Same walk slightly faster — 10 steps — feel the difference","Return to ultra-slow — notice how much more you feel at slow pace","Full 8-Form at your natural pace","Rest 2 minutes, then repeat 8-Form at half speed"], tip:"Slow practice reveals errors. Fast practice builds flow. Both are needed." },
+  { day:24, title:"Outdoor Integration", duration:"25 min", rest:false, steps:["Take your practice outside if possible (grass or soft path)","Feel how ground texture changes your awareness","Opening Form outdoors — feel the air, hear the sounds","Tai Chi walk: notice how nature enhances the meditative quality","Full 8-Form outdoors — let environment be part of your practice","If outdoors not possible: open a window, practice near it","Close: stand still outside for 3 minutes — absorb the energy"], tip:"Tai Chi was designed for outdoor practice — nature amplifies its benefits." },
+  { day:25, title:"Teaching Yourself", duration:"25 min", rest:false, steps:["Before practicing: write down the 8 moves from memory","Do the 8-Form and notice where you had to think vs. where it flowed","Practice only the moves that felt uncertain — 5 minutes each","Run through the 8-Form again — is it smoother?","Try the full form with eyes closed (in a safe space)","Video yourself if comfortable — notice your posture and flow","End: return to Day 1 Opening Form — feel how far you've come"], tip:"Teaching requires you to truly know something — even teaching yourself." },
+  { day:26, title:"Double Session", duration:"30 min", rest:false, steps:["Morning or early session: full 8-Form x2 at normal pace","5-minute rest between sessions","Afternoon or later session: 8-Form x2 focusing on breath only","Notice: does second session feel different from first?","Add one creative element: make a move your own — longer hold, wider step","Cool down: full joint sequence from Week 1","Write: how has your balance, mood, or body changed over 26 days?"], tip:"Two sessions per day accelerates neurological adaptation significantly." },
+  { day:27, title:"Mindful Marathon", duration:"30 min", rest:false, steps:["This is your longest session — go slow and enjoy every moment","5-minute standing meditation to open","Full 8-Form x3 — continuous, no stopping between rounds","Explore: add a variation to each move that feels natural to you","You are now creating YOUR Tai Chi — personalized to your body","End with 5-minute walking meditation — no structure, just walk mindfully","Sit in stillness for 3 minutes after — feel the energy in your body"], tip:"After 27 days, the practice is no longer something you do — it's something you are." },
+  { day:28, title:"Graduation Day!", duration:"30 min", rest:false, steps:["Begin in Wu Ji stance — breathe and feel who you are today vs Day 1","Opening Form: perform it as if for the first time — beginner's mind","Full 8-Form: your best, most present, most flowing version","Slow-motion walk: one final ultra-slow journey — honor every step","Golden Rooster: hold as long as you can — celebrate your strength","Closing Form: let it be meaningful — you've earned this moment","Stand in stillness for 5 minutes — you are a Tai Chi practitioner"], tip:"Congratulations! You now have an 8-minute daily practice you can keep for life." },
+];
+
+let activeWeek = 0;
+let completed = JSON.parse(localStorage.getItem('taichiDone') || '[]');
+
+function saveCompleted() { localStorage.setItem('taichiDone', JSON.stringify(completed)); }
+function getStreak() { let s=0; for(let i=completed.length-1;i>=0;i--){ if(completed[i])s++; else break; } return s; }
+
+function updateStats() {
+  const done = completed.filter(Boolean).length;
+  document.getElementById('statDone').textContent = done;
+  document.getElementById('statLeft').textContent = 28 - done;
+  document.getElementById('statStreak').textContent = getStreak();
+  document.getElementById('statPct').textContent = Math.round(done/28*100) + '%';
+  document.getElementById('progressLabel').textContent = done + ' of 28 days completed';
+  document.getElementById('progressFill').style.width = (done/28*100) + '%';
+}
+
+function renderWeekTabs() {
+  const container = document.getElementById('weekTabs');
+  container.innerHTML = '';
+  weeks.forEach((w, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'week-tab' + (i === activeWeek ? ' active' : '');
+    btn.textContent = 'Week ' + (i+1);
+    btn.onclick = () => { activeWeek = i; renderWeekTabs(); renderDays(); };
+    container.appendChild(btn);
+  });
+  document.getElementById('weekTitle').textContent = weeks[activeWeek].title;
+  document.getElementById('weekSub').textContent = weeks[activeWeek].subtitle;
+}
+
+function renderDays() {
+  const grid = document.getElementById('daysGrid');
+  grid.innerHTML = '';
+  const start = activeWeek * 7;
+  const end = start + 7;
+  const todayDay = completed.filter(Boolean).length + 1;
+  for (let i = start; i < end; i++) {
+    const d = days[i];
+    const isDone = completed[i];
+    const isToday = (i + 1) === todayDay;
+    const card = document.createElement('div');
+    card.className = 'day-card' + (isDone?' completed':'') + (d.rest?' rest':'') + (isToday&&!isDone?' active-day':'');
+    card.innerHTML = `
+      <div class="day-num">Day ${d.day}</div>
+      <div class="day-title">${d.title}</div>
+      <div class="day-duration">⏱ ${d.duration}${d.rest?' — Rest Day':''}</div>
+      <div class="day-desc">${d.steps[0]}...</div>
+      <div class="badge">${isDone?'✅':d.rest?'🌙':isToday?'⭐':'☯'}</div>
+      <button class="complete-btn ${isDone?'done':''}" onclick="toggleDone(event,${i})">${isDone?'✅ Completed':'○ Mark Complete'}</button>
+    `;
+    card.onclick = (e) => { if(e.target.tagName!=='BUTTON') openModal(i); };
+    grid.appendChild(
