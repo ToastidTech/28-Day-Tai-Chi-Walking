@@ -2,22 +2,20 @@
   "name": "28-Day Walking Tai Chi",
   "short_name": "Tai Chi Walk",
   "description": "Build balance, calm, and strength — one mindful step at a time",
-  "start_url": "/28-Day-Tai-Chi-Walking/",
-  "scope": "/28-Day-Tai-Chi-Walking/",
+  "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#0d0d1a",
   "theme_color": "#7ecfcf",
   "icons": [
     {
-      "src": "Logo-192.png",
-      "sizes": "192x192",
+      "src": "Logo.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "icon-v2.png",
-      "sizes": "512x512",
+      "src": "Logo.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     }
