@@ -362,10 +362,13 @@
       }
     }
 
-               // PWA install prompt
+                   // PWA install prompt
     let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (
-    init();
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt
+    
+      init();
   </script>
 </body>
 </html>
