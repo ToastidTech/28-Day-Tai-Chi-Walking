@@ -143,29 +143,30 @@
   <div class="quote-text" id="quoteText">"The journey of a thousand miles begins with a single step."</div>
   <div class="quote-author" id="quoteAuthor">&mdash; Lao Tzu</div>
 <script>
-// PASTE ALL YOUR JS HERE
-const TOTAL=28;
-// ... all the code ...
+// ... all your existing JS ...
+function resetProgress(){
+  localStorage.removeItem('taichiDays');
+  completed = [];
+  buildGrid();
+  updateStats();
+}
 updateStats();
 </script>  ✅ END MAIN SCRIPT
-
 </head>
 <body>
 <div class="bg-canvas"></div>
 
-<!-- Day Modal (keep all existing) -->
+<!-- QUOTE (move here) -->
+<div class="quote" id="quoteText">...</div>
+<div class="quote-author" id="quoteAuthor">&mdash; Lao Tzu</div>
+
+<div id="dayGrid"></div>
+<div id="stats">...</div>
 <div id="dayModal">...</div>
 
-<!-- Reset Button -->
-<button class="reset-btn">Reset Progress</button>
+<button class="reset-btn" onclick="resetProgress()">🔄 Reset Progress</button>
+<div id="ctaOverlay">...</div>
 
-<!-- CTA STARTS HERE -->
-<div id="ctaOverlay">... full form</div>
-<div class="cta-button">Get Free Guide</div>
-
-<script>
-buildGrid();
-updateStats();
-</script>
+<script>buildGrid(); updateStats();</script>
 </body>
 </html>
