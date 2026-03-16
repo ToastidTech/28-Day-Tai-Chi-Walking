@@ -353,18 +353,9 @@
     };
 
     // Reset button (for testing)
-    function resetProgress() {
-      if (confirm('Reset all progress?')) {
-        completedDays = new Array(TOTAL).fill(false);
-        localStorage.setItem('taiChiProgress', JSON.stringify(completedDays));
-        renderDays();
-        updateStats();
-      }
-    }
+        });
 
-        init
-    
-      init();
+    init();
   </script>
 </body>
 </html>
