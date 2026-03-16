@@ -160,8 +160,10 @@
 
 <!-- 2. ADD buildGrid() call to your FINAL script -->
 <script>
-const TOTAL=28;
-// ... ALL YOUR JS + resetProgress() ...
+<script>
+// const TOTAL=28;
+// ALL JS FUNCTIONS + resetProgress()
+buildGrid();  // Add this line!
 updateStats();
 </script>
 
@@ -169,9 +171,10 @@ updateStats();
 <body>
 <div class="bg-canvas"></div>
 
-<div class="quote-text" id="quoteText">...</div>
+<div class="quote-text" id="quoteText">The journey...</div>
 <div class="quote-author" id="quoteAuthor">— Lao Tzu</div>
 
+<!-- SINGLE STATS SECTION -->
 <div class="stats-container">
   <div class="progress-row">
     <span id="daysLabel">0 of 28 days</span>
@@ -189,7 +192,6 @@ updateStats();
 
 <div id="dayGrid"></div>
 <div id="dayModal">...</div>
-
 <button class="reset-btn" onclick="resetProgress()">🔄 Reset Progress</button>
 <div id="ctaOverlay">...</div>
 
