@@ -142,9 +142,25 @@
 <div class="quote-section" id="quoteSection">
   <div class="quote-text" id="quoteText">"The journey of a thousand miles begins with a single step."</div>
   <div class="quote-author" id="quoteAuthor">&mdash; Lao Tzu</div>
-<script>                    ← START TAG
-const TOTAL=28;
-const QUOTES=[...];
+<!-- 1. STATS (before dayGrid) -->
+<div class="stats-container">
+  <div class="progress-row">
+    <span id="daysLabel">0 of 28 days</span>
+    <div class="progress-bar">
+      <div id="progressBar"></div>
+    </div>
+    <span id="percentLabel">0%</span>
+  </div>
+  <div class="mini-stats">
+    <span id="daysDone">0</span> Done 
+    <span id="daysLeft">28</span> Left 
+    <span id="streak">0</span> Streak
+  </div>
+</div>
+
+<!-- 2. ADD buildGrid() call to your FINAL script -->
+<script>
+buildGrid();  // ← THIS CREATES 28 DAY CELLS!
 updateStats();
 </script>                  
 
