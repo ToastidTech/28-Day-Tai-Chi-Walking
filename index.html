@@ -160,6 +160,10 @@ function updateStats(){const done=completed.length;animateNum(document.getElemen
 function resetProgress(){if(confirm('Reset all progress?')){completed=[];localStorage.removeItem('taichiDays');buildGrid();updateStats();}}
 function createParticles(){const canvas=document.getElementById('bgCanvas');for(let i=0;i<18;i++){const p=document.createElement('div');p.className='particle';const size=Math.random()*80+20;p.style.cssText='width:'+size+'px;height:'+size+'px;left:'+Math.random()*100+'%;animation-duration:'+(Math.random()*15+10)+'s;animation-delay:'+(Math.random()*10)+'s';canvas.appendChild(p);}}
 createParticles();buildGrid();updateStats();
+document.getElementById('leadForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const name
 </script><!-- Lead Capture CTA -->
 <div class="cta-overlay" id="ctaOverlay" style="display:none;">
   <div class="cta-modal">
