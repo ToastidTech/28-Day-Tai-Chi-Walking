@@ -164,10 +164,7 @@ function calcStreak(){let s=0;for(let i=1;i<=TOTAL;i++){if(completed.includes(i)
 function animateNum(el,target){const start=parseInt(el.textContent)||0;const diff=target-start;let step=0;const t=setInterval(()=>{step++;el.textContent=Math.round(start+diff*(step/20));if(step>=20)clearInterval(t);},20);}
 function updateStats(){const done=completed.length;animateNum(document.getElementById('daysDone'),done);animateNum(document.getElementById('daysLeft'),TOTAL-done);animateNum(document.getElementById('streak'),calcStreak());const pct=Math.round((done/TOTAL)*100);document.getElementById('percentLabel').textContent=pct+'%';document.getElementById('progressBar').style.width=pct+'%';document.getElementById('daysLabel').textContent=done+' of '+TOTAL+' days completed';}
 function resetProgress(){if(confirm('Reset all progress?')){completed=[];localStorage.removeItem('taichiDays');buildGrid();updateStats();}}
-function create
-  
-  document.getElementById('leadForm').addEventListener('submit', function(e) {
-  e.preventDefault();
+function closeForm() {
   const name = document.getElementById('name').value;
   const email = document.getElementById('email').value;
   const phone = document.getElementById('phone').value || 'none';
