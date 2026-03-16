@@ -159,28 +159,24 @@ function animateNum(el,target){const start=parseInt(el.textContent)||0;const dif
 function updateStats(){const done=completed.length;animateNum(document.getElementById('daysDone'),done);animateNum(document.getElementById('daysLeft'),TOTAL-done);animateNum(document.getElementById('streak'),calcStreak());const pct=Math.round((done/TOTAL)*100);document.getElementById('percentLabel').textContent=pct+'%';document.getElementById('progressBar').style.width=pct+'%';document.getElementById('daysLabel').textContent=done+' of '+TOTAL+' days completed';}
 function resetProgress(){if(confirm('Reset all progress?')){completed=[];localStorage.removeItem('taichiDays');buildGrid();updateStats();}}
 function create
-  </script>
-    
-  <!-- Lead Capture CTA -->
-<div class="cta-overlay" id="ctaOverlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;">
-  <div class="cta-modal" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:400px;background:#141428;border-radius:20px;border:1px solid #7ecfcf;padding:30px;">
-    <div class="cta-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
-      <h3 style="color:#e8e8f0;font-size:1.4rem;margin:0;">📧 Get Your Free Tai Chi Guide</h3>
-      <button class="close-btn" onclick="closeForm()" style="background:none;border:none;color:#7a7a9a;font-size:2rem;cursor:pointer;">×</button>
-    </div>
-    <form id="leadForm">
-      <input type="text" id="name" placeholder="Full Name" required style="width:100%;padding:12px;border:1px solid #2a2a4a;border-radius:10px;background:#1a1a2e;color:#e8e8f0;margin-bottom:12px;font-size:1rem;box-sizing:border-box;">
-      <input type="email" id="email" placeholder="Email Address" required style="width:100%;padding:12px;border:1px solid #2a2a4a;border-radius:10px;background:#1a1a2e;color:#e8e8f0;margin-bottom:12px;font-size:1rem;box-sizing:border-box;">
-      <input type="tel" id="phone" placeholder="Phone (optional)" style="width:100%;padding:12px;border:1px solid #2a2a4a;border-radius:10px;background:#1a1a2e;color:#e8e8f0;margin-bottom:12px;font-size:1rem;box-sizing:border-box;">
-      <button type="submit" class="submit-btn" style="width:100%;padding:14px;border-radius:50px;border:1px solid #7ecfcf;background:transparent;color:#7ecfcf;font-weight:700;font-size:0.9rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;">Send My Free Guide</button>
-    </form>
-    <p class="form-note" style="color:#7a7a9a;font-size:0.8rem;text-align:center;margin-top:16px;">We'll send your 28-Day Tai Chi Guide to your email!</p>
+  
+  document.getElementById('leadForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value || 'none';
+  alert(`Name: ${name}
+Email: ${email}
+Phone: ${phone}`);
+  closeForm();
+});</script>
+    <p class="form-note">...</p>
   </div>
 </div>
 
 <!-- CTA Button -->
 <div style="text-align:center;padding:30px 20px;">
-  <button onclick="document.getElementById('ctaOverlay').style.display='block'" style="padding:16px 32px;background:#7ecfcf;color:#0d0d1a;border:none;border-radius:30px;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 4px 15px rgba(126,207,207,0.4);">Get Free Tai Chi Guide</button>
+  <button onclick="document.getElementById('ctaOverlay').style.display='block'" ...>
 </div>
 
 </body>
