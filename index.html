@@ -144,12 +144,10 @@
   <div class="quote-author" id="quoteAuthor">&mdash; Lao Tzu</div>
 </div>
 }<button class="reset-btn" onclick="resetProgress()">&#x21BA; Reset Progress</button>
-    function closeForm() {
-  document.getElementById('ctaOverlay').style.display = 'none';
-}
-
-document.getElementById('leadForm').addEventListener('submit', function(e) {
-  e.preventDefault
+function closeForm() { 
+document.getElementById('ctaOverlay').style.display = 'none'; } 
+document.getElementById('leadForm').addEventListener('submit', function(e) { 
+e.preventDefault
 <script>
 const TOTAL=28;
 const QUOTES=[{text:"The journey of a thousand miles begins with a single step.",author:"Lao Tzu"},{text:"In stillness, the world is restored.",author:"Tao Te Ching"},{text:"Nature does not hurry, yet everything is accomplished.",author:"Lao Tzu"},{text:"To the mind that is still, the whole universe surrenders.",author:"Chuang Tzu"},{text:"Every breath is a new beginning.",author:"Tai Chi Proverb"},{text:"Balance is not something you find. It is something you create.",author:"Tai Chi Wisdom"},{text:"Move like water. Be like the bamboo.",author:"Ancient Proverb"},{text:"The body benefits from movement, the mind from stillness.",author:"Sakyong Mipham"}];
@@ -170,8 +168,25 @@ updateStats();
 <div id="ctaOverlay">... ✅ FULL MODAL
 
 <!-- CTA Button -->
-<div>button</div> ✅ BUTTON
+</style>
+</head>
+<body>
+<div class="bg-canvas"></div>
+<div id="dayModal">... (keep)
+... all your content ...
+<button class="reset-btn">Reset Progress</button>
 
-<script>form listener</script> ✅ FORM SCRIPT
-</body>
-</html> ✅ END
+<script>
+// ALL Tai Chi JS only - NO CTA here
+const TOTAL=28;
+... all functions ...
+updateStats();
+</script>
+
+<!-- NEW CTA STARTS HERE -->
+<div id="ctaOverlay">... full form
+<div class="cta-button">Get Free Guide</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('lead
