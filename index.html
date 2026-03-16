@@ -159,7 +159,8 @@ function animateNum(el,target){const start=parseInt(el.textContent)||0;const dif
 function updateStats(){const done=completed.length;animateNum(document.getElementById('daysDone'),done);animateNum(document.getElementById('daysLeft'),TOTAL-done);animateNum(document.getElementById('streak'),calcStreak());const pct=Math.round((done/TOTAL)*100);document.getElementById('percentLabel').textContent=pct+'%';document.getElementById('progressBar').style.width=pct+'%';document.getElementById('daysLabel').textContent=done+' of '+TOTAL+' days completed';}
 function resetProgress(){if(confirm('Reset all progress?')){completed=[];localStorage.removeItem('taichiDays');buildGrid();updateStats();}}
 function create
- <script>
+  </script>
+    
   <!-- Lead Capture CTA -->
 <div class="cta-overlay" id="ctaOverlay" style="display:none;">
   <div class="cta-modal">
