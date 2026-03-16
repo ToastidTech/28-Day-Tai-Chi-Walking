@@ -160,21 +160,36 @@
 
 <!-- 2. ADD buildGrid() call to your FINAL script -->
 <script>
-buildGrid();  // ← THIS CREATES 28 DAY CELLS!
+const TOTAL=28;
+// ... ALL YOUR JS + resetProgress() ...
 updateStats();
-<script>JS</script>
+</script>
+
 </head>
 <body>
-  canvas → quote → stats → dayGrid → final script → reset → CTA
-</body>                     
+<div class="bg-canvas"></div>
 
-<!-- SINGLE QUOTE SECTION -->
 <div class="quote-text" id="quoteText">...</div>
-<div class="quote-author" id="quoteAuthor">&mdash; Lao Tzu</div>
+<div class="quote-author" id="quoteAuthor">— Lao Tzu</div>
+
+<div class="stats-container">
+  <div class="progress-row">
+    <span id="daysLabel">0 of 28 days</span>
+    <div class="progress-bar">
+      <div id="progressBar"></div>
+    </div>
+    <span id="percentLabel">0%</span>
+  </div>
+  <div class="mini-stats">
+    <span id="daysDone">0</span> Done 
+    <span id="daysLeft">28</span> Left 
+    <span id="streak">0</span> Streak
+  </div>
+</div>
 
 <div id="dayGrid"></div>
-<div id="stats">...</div>
 <div id="dayModal">...</div>
+
 <button class="reset-btn" onclick="resetProgress()">🔄 Reset Progress</button>
 <div id="ctaOverlay">...</div>
 
@@ -182,5 +197,5 @@ updateStats();
 buildGrid();
 updateStats();
 </script>
-  </body>  
+</body>
 </html>
