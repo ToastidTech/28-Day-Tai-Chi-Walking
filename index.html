@@ -144,6 +144,12 @@
   <div class="quote-author" id="quoteAuthor">&mdash; Lao Tzu</div>
 </div>
 }<button class="reset-btn" onclick="resetProgress()">&#x21BA; Reset Progress</button>
+    function closeForm() {
+  document.getElementById('ctaOverlay').style.display = 'none';
+}
+
+document.getElementById('leadForm').addEventListener('submit', function(e) {
+  e.preventDefault
 <script>
 const TOTAL=28;
 const QUOTES=[{text:"The journey of a thousand miles begins with a single step.",author:"Lao Tzu"},{text:"In stillness, the world is restored.",author:"Tao Te Ching"},{text:"Nature does not hurry, yet everything is accomplished.",author:"Lao Tzu"},{text:"To the mind that is still, the whole universe surrenders.",author:"Chuang Tzu"},{text:"Every breath is a new beginning.",author:"Tai Chi Proverb"},{text:"Balance is not something you find. It is something you create.",author:"Tai Chi Wisdom"},{text:"Move like water. Be like the bamboo.",author:"Ancient Proverb"},{text:"The body benefits from movement, the mind from stillness.",author:"Sakyong Mipham"}];
