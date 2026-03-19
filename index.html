@@ -333,4 +333,236 @@
     }
 
     function closeLeadModal() {
+      document.getElement      color: #333; 
+      padding: 10px; 
+      font-size: 0.7rem; 
+      font-style: italic; 
+      transition: bottom 0.4s ease; 
+      text-align: center; 
+      opacity: 0; 
+    }
+    .day-card:hover::before { bottom: 0; opacity: 1; }
+    .day-card:hover { 
+      transform: translateY(-15px) scale(1.05); 
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2); 
+    }
+    .day-card.complete { 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+      color: white; 
+      border-color: #ffd700; 
+    }
+    .day-number { font-size: 2.5rem; font-weight: 800; }
+    .day-label { font-size: 0.9rem; margin-top: 5px; opacity: 0.8; }
+    .modal { 
+      display: none; 
+      position: fixed; 
+      top: 0; left: 0; width: 100%; height: 100%; 
+      background: rgba(0,0,0,0.8); 
+      z-index: 1000; 
+      align-items: center; justify-content: center; 
+    }
+    .modal-content { 
+      background: white; 
+      max-width: 90%; 
+      max-height: 90%; 
+      border-radius: 20px; 
+      padding: 30px; 
+      position: relative; 
+      animation: modalSlide 0.4s ease-out; 
+      max-width: 500px; 
+    }
+    .close { 
+      position: absolute; top: 15px; right: 20px; 
+      font-size: 2rem; cursor: pointer; color: #aaa; 
+    }
+    .close:hover { color: #333; }
+    .workout-title { font-size: 1.6rem; margin-bottom: 20px; text-align: center; }
+    .workout-steps { list-style: none; }
+    .workout-steps li { 
+      padding: 12px; margin-bottom: 10px; 
+      background: #f8f9ff; border-radius: 12px; 
+      border-left: 4px solid #667eea; 
+    }
+    .quote-author { 
+      text-align: right; 
+      font-style: italic; 
+      color: #666; 
+      margin-top: 15px; 
+      font-size: 0.9rem; 
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
+    .form-group input { 
+      width: 100%; padding: 12px; 
+      border: 2px solid #e1e5e9; 
+      border-radius: 10px; 
+      font-size: 1rem; 
+      transition: border-color 0.3s; 
+    }
+    .form-group input:focus { outline: none; border-color: #667eea; }
+    .submit-btn { 
+      width: 100%; background: linear-gradient(45deg, #667eea, #764ba2); 
+      color: white; border: none; 
+      padding: 15px; border-radius: 12px; 
+      font-size: 1.1rem; font-weight: 600; 
+      cursor: pointer; 
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } }
+    @keyframes spin { from { transform: rotate(0deg); } }
+    @keyframes modalSlide { from { opacity: 0; transform: scale(0.8) translateY(-30px); } }
+    @media (max-width: 768px) { 
+      .days-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      h1 { font-size: 1.5rem; }
+      .stats { flex-direction: column; gap: 10px; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="yin-yang"></div>
+    <h1>28-Day Walking Tai Chi</h1>
+    <div class="stats">
+      <div class="stat" id="completed">0</div>
+      <div class="stat">/</div>
+      <div class="stat" id="total">28</div>
+    </div>
+    <button class="cta-btn" onclick="openLeadModal()">Get Free Tai Chi Guide</button>
+  </div>
+
+  <div class="days-grid" id="daysGrid"></div>
+
+  <!-- Workout Modal -->
+  <div id="workoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeWorkoutModal()">&times;</span>
+      <div id="workoutContent"></div>
+    </div>
+  </div>
+
+  <!-- Lead Modal -->
+  <div id="leadModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLeadModal()">&times;</span>
+      <h2 style="text-align: center; margin-bottom: 20px; color: #333;">Get Your Free Tai Chi Guide</h2>
+      <form id="leadForm">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="phone" required>
+        </div>
+        <button type="submit" class="submit-btn">Send My Free Guide</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const TOTAL = 28;
+    const QUOTES = [
+      {text: "The journey of a thousand miles begins with a single step.", author: "Lao Tzu"},
+      {text: "In stillness, the world is restored.", author: "Tao Te Ching"},
+      {text: "Nature does not hurry, yet everything is accomplished.", author: "Lao Tzu"},
+      {text: "To the mind that is still, the whole universe surrenders.", author: "Chuang Tzu"},
+      {text: "Every breath is a reminder that you are alive.", author: "Unknown"},
+      {text: "Water is fluid, soft, and yielding. But water will wear away rock.", author: "Lao Tzu"},
+      {text: "Rest is not quitting. Rest is preparing to go further.", author: "Unknown"},
+      {text: "The soft overcomes the hard; the gentle overcomes the rigid.", author: "Tao Te Ching"},
+      {text: "Halfway there. The second half begins with renewed focus.", author: "Unknown"},
+      {text: "Simplicity is the ultimate sophistication.", author: "Leonardo da Vinci"},
+      {text: "Do not go where the path may lead, walk where there is no path.", author: "Ralph Waldo Emerson"},
+      {text: "Balance is the key to all life. Know when to act, know when to pause.", author: "Unknown"},
+      {text: "Strength does not come from physical capacity, but from an indomitable will.", author: "Mahatma Gandhi"},
+      {text: "The obstacle is the way. Embrace the resistance.", author: "Marcus Aurelius"},
+      {text: "Progress, not perfection. Each step refines your practice.", author: "Unknown"},
+      {text: "At the heart of almost every virtue lies moderation.", author: "Aristotle"},
+      {text: "The best fighter is never angry.", author: "Lao Tzu"},
+      {text: "Three weeks create a habit. You've built momentum.", author: "Unknown"},
+      {text: "Yield like water to shape the unyielding stone.", author: "Tao Te Ching"},
+      {text: "Endurance is not just the ability to bear a hard thing, but to turn it into glory.", author: "William Barclay"},
+      {text: "One more step. Transformation awaits completion.", author: "Unknown"},
+      {text: "The sage acts without expectation of reward.", author: "Tao Te Ching"},
+      {text: "Mastery is in the details. Polish your flow.", author: "Unknown"},
+      {text: "When nothing goes right, go left... then circle back.", author: "Unknown"},
+      {text: "Excellence is not a destination, but a way of life.", author: "Aristotle"},
+      {text: "The final stretch reveals your true strength.", author: "Unknown"},
+      {text: "Victory belongs to the most persevering.", author: "Napoleon Bonaparte"},
+      {text: "You have arrived. Celebrate the transformation.", author: "Unknown"}
+    ];
+
+    const WORKOUTS = Array.from({length: TOTAL}, (_, i) => ({
+      title: `Day ${i+1}: Flow Sequence ${i+1}`,
+      steps: [
+        "Stand tall, feet shoulder-width, arms relaxed.",
+        "Inhale deeply, raise arms slowly overhead.",
+        "Exhale, bend knees gently, sink into stance.",
+        `${i+1} slow breaths with gentle swaying motion.`,
+        "Circle arms clockwise 5x, then counterclockwise.",
+        "Return to center, hands to heart, bow gently."
+      ]
+    }));
+
+    let completedDays = JSON.parse(localStorage.getItem('taiChiProgress')) || new Array(TOTAL).fill(false);
+
+    function init() {
+      updateStats();
+      renderDays();
+    }
+
+    function renderDays() {
+      const grid = document.getElementById('daysGrid');
+      grid.innerHTML = '';
+      
+      QUOTES.forEach((quote, index) => {
+        const card = document.createElement('div');
+        card.className = `day-card ${completedDays[index] ? 'complete' : ''}`;
+        card.innerHTML = `
+          <div class="day-number">${index + 1}</div>
+          <div class="day-label">Day ${index + 1}</div>
+        `;
+        card.dataset.quote = `"${quote.text}" – ${quote.author}`;
+        card.onclick = () => openWorkout(index);
+        grid.appendChild(card);
+      });
+    }
+
+    function openWorkout(dayIndex) {
+      const workout = WORKOUTS[dayIndex];
+      const quote = QUOTES[dayIndex];
+      document.getElementById('workoutContent').innerHTML = `
+        <div class="workout-title">${workout.title}</div>
+        <ul class="workout-steps">
+          ${workout.steps.map(step => `<li>${step}</li>`).join('')}
+        </ul>
+        <div class="quote-author">${quote.text} <br><em>– ${quote.author}</em></div>
+        ${!completedDays[dayIndex] ? `<button class="cta-btn" onclick="completeDay(${dayIndex})" style="margin-top: 20px;">Mark Complete</button>` : ''}
+      `;
+      document.getElementById('workoutModal').style.display = 'flex';
+    }
+
+    function completeDay(dayIndex) {
+      completedDays[dayIndex] = true;
+      localStorage.setItem('taiChiProgress', JSON.stringify(completedDays));
+      closeWorkoutModal();
+      renderDays();
+      updateStats();
+    }
+
+    function updateStats() {
+      }
+
+    function closeWorkoutModal() {
+      document.getElementById('workoutModal').style.display = 'none';
+    }
+
+    function openLeadModal() {
+      document.getElementById('leadModal').style.display = 'flex';
+    }
+
+    function closeLeadModal() {
       document.getElement
