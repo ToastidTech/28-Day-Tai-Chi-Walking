@@ -310,16 +310,6 @@
         <div class="quote-author">${quote.text} <br><em>– ${quote.author}</em></div>
         ${!completedDays[dayIndex] ? `<button class="cta-btn" onclick="completeDay(${dayIndex})" style="margin-top: 20px;">Mark Complete</button>` : ''}
       `;
-      document.getElementById('workoutModal').style.display = 'flex';
-    }
-
-    function completeDay(dayIndex) {
-      completedDays[dayIndex] = true;
-      localStorage.setItem('taiChiProgress', JSON.stringify(completedDays));
-      closeWorkoutModal();
-      renderDays();
-      updateStats();
-    }
-
-        function updateStats() {
+      document.getElementById('workoutModal').style.display = 
+        
   const completed
