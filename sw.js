@@ -1,36 +1,21 @@
-const CACHE = 'taichi-v2';
-const ASSETS = [
-  '/28-Day-Tai-Chi-Walking/',
-  '/28-Day-Tai-Chi-Walking/index.html',
-  '/28-Day-Tai-Chi-Walking/manifest.json',
-  '/28-Day-Tai-Chi-Walking/Logo.png',
-  '/28-Day-Tai-Chi-Walking/icon-192.png',
-  '/28-Day-Tai-Chi-Walking/icon-512.png',
-];
-
-// Install: cache all assets
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(ASSETS))
-  );
-  self.skipWaiting(); // activate immediately
+// 28-Day Walking Tai Chi — RETIRED 2026-11-08.
+// This service worker replaces the retired app's worker: it clears all old
+// caches, takes control of open tabs, and unregisters itself so returning
+// visitors always land on the retired notice page.
+self.addEventListener('install', () => {
+  self.skipWaiting();
 });
 
-// Activate: delete old caches
 self.addEventListener('activate', e => {
   e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.filter(k => k !== CACHE).map(k => caches.delete(k))
-      )
-    )
+    caches.keys()
+      .then(keys => Promise.all(keys.map(k => caches.delete(k))))
+      .then(() => self.clients.claim())
+      .then(() => self.registration.unregister())
   );
-  self.clients.claim(); // take control of all open tabs
 });
 
-// Fetch: serve from cache, fall back to network
+// Network passthrough — never serve the retired app from cache.
 self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(r => r || fetch(e.request))
-  );
+  e.respondWith(fetch(e.request));
 });
